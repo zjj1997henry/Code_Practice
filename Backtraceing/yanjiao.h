@@ -2,6 +2,7 @@
 #define YANJIAO_H
 
 #include <vector>
+#include <set>
 using namespace std;
 
 /*
@@ -16,16 +17,16 @@ public:
 
     void setNums(vector<int> nums);
 
-    vector<vector<vector<int>>> calc();
+    multiset<multiset<multiset<int>>> calc();
 
 private:
     void backtracing(int sum_a, int sum_b, int index);
 
 
-    vector<vector<vector<int>>> res;
+    multiset<multiset<multiset<int>>> res;
 
-    vector<int> va;
-    vector<int> vb;
+    multiset<int> va;
+    multiset<int> vb;
 
 
     vector<int> nums;

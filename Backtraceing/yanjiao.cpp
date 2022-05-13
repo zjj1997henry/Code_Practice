@@ -1,8 +1,11 @@
 #include "yanjiao.h"
 #include <algorithm>
+#include <set>
+
 
 YanJiao::YanJiao()
 {
+
 
 }
 
@@ -12,7 +15,7 @@ void YanJiao::setNums(vector<int> nums)
 }
 
 
-vector<vector<vector<int>>> YanJiao::calc()
+multiset<multiset<multiset<int>>> YanJiao::calc()
 {
     backtracing(0, 0, 0);
     return res;
@@ -22,23 +25,26 @@ void YanJiao::backtracing(int sum_a, int sum_b, int index)
 {
     if(sum_a == sum_b && sum_a > 0){
 
-        res.push_back({va, vb});
+        if(!res.count({va, vb}) && !res.count({vb,va})){
+            res.insert({va,vb});
+        }
         return;
     }
 
     //每张牌都有三种情况，A选，B选，都不选
-    for(size_t i = index; i < nums.size(); i++){
-
+    for(int i = index; i < nums.size(); i++){
+        if(sum_b - sum_a < 13 * (int)(nums.size() - i))
         {
-            va.push_back(nums[i]);
+            va.insert(nums[i]);
             backtracing(sum_a + nums[i], sum_b, i+1);
-            va.pop_back();
+            va.erase(va.find(nums[i]));
         }
 
+        if(sum_a - sum_b < 13 * (int)(nums.size() - i))
         {
-            vb.push_back(nums[i]);
+            vb.insert(nums[i]);
             backtracing(sum_a, sum_b + nums[i], i+1);
-            vb.pop_back();
+            vb.erase(vb.find(nums[i]));
         }
 
         {
