@@ -23,7 +23,7 @@ void Fangtong::backtracing(int sum, int index){
         return;
     }
 
-    for(size_t i = index; i < nums.size() && sum + nums[i] < 36; i++){
+    for(size_t i = index; i < nums.size() && sum + nums[i] <= 36; i++){
         temp_nums.push_back(nums[i]);
         backtracing(sum + nums[i], i+1);
         temp_nums.pop_back();
